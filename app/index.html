@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MetaCoin - Truffle Webpack Demo w/ Frontend</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
+</head>
+    <body class="container"><thead>
+        <tr>
+        <th></th>
+        <th>Selling power</th>
+        <th>(power/kwh)</th>
+        
+        </tr>
+        </thead>
+        <table class="table table-bordered">
+        <thead>
+        <tr>
+        <th></th>
+        <th>address</th>
+        <th>Power</th>
+        <th>Price</th>
+        <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Home1</td>
+        <td id="address-1"> </td>
+        <td id="power-1"> </td>
+        <td id="price-1"> </td>
+        <td id="status-1"> </td>
+        </tr>
+        <tr>
+        <td>Home2</td>
+        <td id="candidate-2"></td>
+        <td id="power-2"></td>
+        <td id="price-2"></td>
+        <td id="status-2"></td>
+        </tr>
+        <tr>
+        <td>Home3</td>
+        <td id="candidate-3"></td>
+        <td id="power-3"></td>
+        <td id="price-3"></td>
+        <td id="status-3"></td>
+        </tr>
+        </tbody>
+        </table>
+        
+        
+        
+        <label for="receiver">My Storeage :</label><input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>
+        
+        
+        <button id="send" onclick="App.sendCoin()">Verification</button>
+        
+        <h3>You have <span class="black"><span id="storeage"></span> kwh</span></h3>
+        
+        <span id="status"></span>
+        
+        
+        
+        </body>
+</html>
