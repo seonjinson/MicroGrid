@@ -1,19 +1,16 @@
-// Import the page's CSS. Webpack will know what to do with it.
+
 import "../stylesheets/app.css";
 
-// Import libraries we need.
+
 import { default as Web3} from 'web3';
 import { default as contract } from 'truffle-contract'
 
-// Import our contract artifacts and turn them into usable abstractions.
-import metacoin_artifacts from '../../build/contracts/MicroGrid.json'
 
-// MetaCoin is our usable abstraction, which we'll use through the code below.
-var MetaCoin = contract(metacoin_artifacts);
+import microgrid_artifacts from '../../build/contracts/MicroGrid.json'
 
-// The following code is simple to show off interacting with your contracts.
-// As your needs grow you will likely need to change its form and structure.
-// For application bootstrapping, check out window.addEventListener below.
+
+var MicroGrid = contract(microgrid_artifacts);
+
 var accounts;
 var account;
 
@@ -21,10 +18,8 @@ window.App = {
   start: function() {
     var self = this;
 
-    // Bootstrap the MetaCoin abstraction for Use.
-    MetaCoin.setProvider(web3.currentProvider);
+    MicroGrid.setProvider(web3.currentProvider);
 
-    // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
       if (err != null) {
         alert("There was an error fetching your accounts.");
@@ -56,7 +51,7 @@ window.App = {
     var vaild = false;
 
     var meta;
-    MetaCoin.deployed().then(function(instance) {
+    MicroGrid.deployed().then(function(instance) {
       meta = instance;
 
       meta.power().then(function(value){
@@ -74,6 +69,14 @@ window.App = {
         }else
         statusOfPay.innerHTML = "sold";
       })
+
+      meta.refund().then(function(value){
+        var refunds = document.getElementById("refund");
+      refunds.innerHTML = value.valueOf();
+      })
+
+
+
       return meta.priceOfPower.call(power, {from: account});
     }).then(function(value) {
       var balance_element = document.getElementById("price-1");
@@ -89,13 +92,12 @@ window.App = {
   sendCoin: function() {
     var self = this;
 
-   // var amount = parseInt(document.getElementById("amount").value);
     var receiver = document.getElementById("receiver").value;
 
     this.setStatus("Initiating transaction... (please wait)");
 
     var meta;
-    MetaCoin.deployed().then(function(instance) {
+    MicroGrid.deployed().then(function(instance) {
       meta = instance;
       return meta.vaildTransferOfPower.call(receiver);
     }).then(function(value) {
@@ -109,25 +111,6 @@ window.App = {
       self.setStatus("Error verify storeage; see log.");
     });
   },
-/*
-  refreshBalance2: function(){
-    var self = this;
-    var receiver = document.getElementById("receiver").value;
-
-    var meta;
-    MetaCoin.deployed().then(function(instance) {
-      meta = instance;
-
-      return meta.vaildTransferOfPower.call(receiver,{from:account})
-    }).then(function(value) {
-      var balance_element = document.getElementById("storeage");
-      balance_element.innerHTML = value.valueOf();
-    }).catch(function(e) {
-      console.log(e);
-      self.setStatus("Error getting balance; see log.");
-    });
-  }
-*/
 
   };
 
